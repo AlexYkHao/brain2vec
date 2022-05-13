@@ -11,5 +11,5 @@
 ml python/3.6.1
 ml antspy/0.2.2
 date
-python3 -u /home/users/ykhao/registration/brainsss/scripts/pre_processing.py &
+python3 -u /home/users/ykhao/registration/brain2vec/scripts/pre_processing.py &
 wait

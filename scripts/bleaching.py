@@ -15,7 +15,6 @@ def main(args):
     width = 120
     printlog = getattr(brainsss.Printlog(logfile=logfile), 'print_to_log')
     file = directory.split('/')[-1]
-
     #################
     ### Load Data ###
     #################

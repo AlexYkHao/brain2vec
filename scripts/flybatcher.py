@@ -32,7 +32,7 @@ class FlyBatcher(object):
         # unpack all flies
         #########
         self.flies = self.fly_list
-
+        self.width = self.print_width 
         #########
         # set up log file
         #########
@@ -49,7 +49,7 @@ class FlyBatcher(object):
         self.printlog(title_shifted)
         day_now = datetime.datetime.now().strftime("%B %d, %Y")
         time_now = datetime.datetime.now().strftime("%I:%M:%S %p")
-        self.printlog(F"{day_now+' | '+time_now:^{self.print_width}}")
+        self.printlog(F"{day_now+' | '+time_now:^{self.width}}")
         self.printlog("")        
 
     
@@ -66,7 +66,7 @@ class FlyBatcher(object):
 
     
     def bleach_curve(self):
-        self.printlog(f"\n{'   BLEACHING QC   ':=^{self.print_width}}")
+        self.printlog(f"\n{'   BLEACHING QC   ':=^{self.width}}")
         job_ids = []
         for fly in self.flies:
             for channel in self.channels:
@@ -81,12 +81,11 @@ class FlyBatcher(object):
                          args=args,
                          logfile=self.logfile, time=1, mem=1, nice=self.nice, nodes=self.nodes)
                 job_ids.append(job_id)
-        
         self.submit_jobs(job_ids)
 
 
     def mean_brain(self):
-        self.printlog(f"\n{'   MEAN BRAINS   ':=^{self.print_width}}")
+        self.printlog(f"\n{'   MEAN BRAINS   ':=^{self.width}}")
         job_ids = []
         for fly in self.flies:
             for channel in self.channels:
