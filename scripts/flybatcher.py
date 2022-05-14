@@ -81,6 +81,7 @@ class FlyBatcher(object):
                          args=args,
                          logfile=self.logfile, time=1, mem=1, nice=self.nice, nodes=self.nodes)
                 job_ids.append(job_id)
+
         self.submit_jobs(job_ids)
 
 
@@ -101,6 +102,34 @@ class FlyBatcher(object):
                          logfile=self.logfile, time=1, mem=1, nice=self.nice, nodes=self.nodes)
                 job_ids.append(job_id)
         
+        self.submit_jobs(job_ids)
+
+    def motion_correction(self):
+        self.printlog(f"\n{'   MOTION CORRECTION   ':=^{self.width}}")
+        job_ids = []
+
+        for fly in self.flies:
+            carrier_channel = 'red'
+            passenger_channel = 'green'
+            step_size = 100  # number of volumes
+            mem = 4
+            time_moco = 12
+
+            directory = os.path.join(self.dataset_path, fly['id'])
+            carrier = os.path.join(self.dataset_path, fly['id'], fly[carrier_channel])
+            passenger = os.path.join(self.dataset_path, fly['id'], fly[passenger_channel])
+
+            args = {'logfile': self.logfile, 'directory': directory, 'carrier': carrier, 'passenger': passenger,
+                    'step_size': step_size}
+            script = 'moco.py'
+            job_id = brainsss.sbatch(jobname='brain2vec',
+                                     script=os.path.join(self.scripts_path, script),
+                                     modules=modules,
+                                     args=args,
+                                     ogfile=self.logfile, time=time_moco, mem=mem, nice=self.nice, nodes=self.nodes)
+
+            job_ids.append(job_id)
+
         self.submit_jobs(job_ids)
 
 
