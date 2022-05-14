@@ -40,7 +40,7 @@ def main(args):
     make_empty_h5(passenger_h5, brain_shape)
 
     total_volumes = brain_shape[-1]
-    n_steps = np.ceil(total_volumes / step_size)
+    n_steps = int(np.ceil(total_volumes / step_size))
 
     steps = list(range(0, total_volumes, step_size))
     # add the last few volumes that are not divisible by stepsize
@@ -68,9 +68,11 @@ def main(args):
             passenger_chunk.append(psg_moco.numpy())
 
             for tmp in moco['fwdtransforms']:
-                os.remove(tmp)
+                if '.mat' not in tmp: 	   
+                    os.remove(tmp)
             for tmp in moco['invtransforms']:
-                os.remove(tmp)
+                if '.mat' not in tmp:	
+                    os.remove(tmp)
 
         carrier_chunk = np.moveaxis(np.asarray(carrier_chunk), 0, -1)
         with h5py.File(carrier_h5, 'a') as f:

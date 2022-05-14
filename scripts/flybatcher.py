@@ -54,8 +54,9 @@ class FlyBatcher(object):
 
     
     def pre_processing(self):
-        self.bleach_curve()
-        self.mean_brain()
+        #self.bleach_curve()
+        #self.mean_brain()
+        self.motion_correction()
 
 
     def submit_jobs(self, job_ids):
@@ -126,7 +127,7 @@ class FlyBatcher(object):
                                      script=os.path.join(self.scripts_path, script),
                                      modules=modules,
                                      args=args,
-                                     ogfile=self.logfile, time=time_moco, mem=mem, nice=self.nice, nodes=self.nodes)
+                                     logfile=self.logfile, time=time_moco, mem=mem, nice=self.nice, nodes=self.nodes)
 
             job_ids.append(job_id)
 
