@@ -10,7 +10,7 @@ import brainsss
 from flybatcher import FlyBatcher
 
 
-fb = FlyBatcher(config='/oak/stanford/groups/trc/data/Yukun/2P_Imaging/imports/test/test.json')
+fb = FlyBatcher(config='/oak/stanford/groups/trc/data/Yukun/2P_Imaging/imports/220421/test.json')
 fb.pre_processing()
 
 

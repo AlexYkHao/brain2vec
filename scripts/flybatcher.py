@@ -54,8 +54,8 @@ class FlyBatcher(object):
 
     
     def pre_processing(self):
-        #self.bleach_curve()
-        #self.mean_brain()
+        self.bleach_curve()
+        self.mean_brain()
         self.motion_correction()
 
 
